@@ -1,0 +1,26 @@
+{
+  "name": "mutation",
+  "version": "1.0.0",
+  "description": "手写js库",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "observer": "parcel ./example/observer/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hpstream/mutation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hpstream/mutation/issues"
+  },
+  "homepage": "https://github.com/hpstream/mutation#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-react-jsx": "^7.8.3",
+    "parcel-bundler": "^1.12.4",
+    "rollup": "^1.31.1"
+  }
+}
