@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "observer": "parcel ./example/observer/index.html"
+    "observer": "parcel ./example/observer/index.html",
+    "vdom": "parcel ./example/vdom/index.html"
   },
   "repository": {
     "type": "git",
