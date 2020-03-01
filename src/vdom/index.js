@@ -98,7 +98,6 @@ function diffChildren(oldVdom, newVdom, node) {
     var oldchild = oldchildren[i];
     patch(oldchild, newchild, node) 
   })
-  
 }
 
 function patch(oldVdom, newVdom, node) {
