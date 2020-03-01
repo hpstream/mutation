@@ -1,24 +1,24 @@
-import { createElement, render} from './../../src/vdom/index'
+import { h, render} from './../../src/vdom/index'
 
-
-let VirtualDOM = createElement('div', { class: '' }, [
-  createElement('li', { class: 'item' }, ['1']),
-  createElement('li', { class: 'item' }, ['2']),
-  createElement('li', { class: 'item' }, ['3']),
-  createElement('li', { class: 'item' }, ['4'])
+var bb = '22'
+let VirtualDOM = h('div', { key:1,class: 'list' }, [
+  h('li', { class: 'item' ,key: 1 }, ['1']),
+  h('li', { class: 'item' ,key: 2 }, [bb]),
+  h('li', { class: 'item' }, ['3']),
+  h('li', { class: 'item' ,on:{click:()=>{alert(1)}} }, ['4'])
 ])
 
-let newVirtualDOM = createElement('div', { class: 'list1' }, [
-  createElement('li', {}, ['a']),
-  createElement('li', { class: 'item1' }, ['b']),
-  createElement('li', { class: 'item1' }, [
-    createElement('div', { class: 'div' }, ['c'])
+let newVirtualDOM = h('div', { key: 1,class: 'list1' }, [
+  h('li', {}, ['a']),
+  h('li', { class: 'item1' ,key: 1 }, ['b']),
+  h('li', { class: 'item1', key: 2 }, [
+    h('div', { class: 'div' }, ['c'])
   ]),
-  createElement('li', { class: 'item1' }, ['d'])
-  // createElement('li', { class: 'item' }, [
-  //   createElement('textarea', { value: 'resres' }, []),
-  //   createElement('input', { value: '323232' }, []),
-  // ])
+  h('li', { class: 'item1' }, ['d']),
+  h('li', { class: 'item' }, [
+    h('textarea', { value: 'resres' }, []),
+    h('input', { value: '323232' }, []),
+  ])
 ])
 
 
@@ -27,4 +27,4 @@ render(VirtualDOM,document.querySelector('#root'))
 
 setTimeout(() => {
   render(VirtualDOM, newVirtualDOM)
-}, 0);
+}, 1000);
