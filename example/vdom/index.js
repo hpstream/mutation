@@ -1,30 +1,28 @@
-import { h, render} from './../../src/vdom/index'
+import { h} from './../../src/vdom/index'
+import {render} from './../../src/vdom/fiber/index'
 
-var bb = '22'
-let VirtualDOM = h('div', { key:1,class: 'list' }, [
-  h('li', { class: 'item' ,key: 1 }, ['1']),
-  h('li', { class: 'item' ,key: 2 }, [bb]),
-  h('li', { class: 'item' }, ['3']),
-  h('li', { class: 'item' ,on:{click:()=>{alert(1)}} }, ['4'])
-])
+var arr = [];
+for(var i=0;i<100000;i++){
+  arr.push((<li className={i}>{i+''}</li>))
+}
+let VirtualDOM = (
+  <div key='1' className='list1' >
+    {arr}
+  </div>
+)
 
-let newVirtualDOM = h('div', { key: 1,class: 'list1' }, [
-  h('li', {}, ['a']),
-  h('li', { class: 'item1' ,key: 1 }, ['b']),
-  h('li', { class: 'item1', key: 2 }, [
-    h('div', { class: 'div' }, ['c'])
-  ]),
-  h('li', { class: 'item1' }, ['d']),
-  h('li', { class: 'item' }, [
-    h('textarea', { value: 'resres' }, []),
-    h('input', { value: '323232' }, []),
-  ])
-])
-
+let newVirtualDOM = (
+  <div key='1' className='list' >
+    {arr}
+  </div>
+)
 
 render(VirtualDOM,document.querySelector('#root'))
 
 
-setTimeout(() => {
-  render(VirtualDOM, newVirtualDOM)
-}, 1000);
+// setInterval(() => {
+//   render(VirtualDOM, newVirtualDOM)
+// }, 10000);
+
+
+
