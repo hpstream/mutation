@@ -13,7 +13,7 @@
 常见操作dom 的方法 Node
 
 | 方法 |	描述 |
--|-|-
+|-|-|
 |appendChild()|	把新的子节点添加到指定节点。|
 |removeChild|	删除子节点。|
 |replaceChild|	替换子节点。|
@@ -25,10 +25,10 @@
 |setAttribute|	把指定属性设置或修改为指定的值。|
 |removeAttribute| 删除属性 |
 
-#nodeType 属性
+# nodeType 属性
 
 |元素类型	| NodeType|
--|-|-
+|-|-|
 |元素	| 1|
 |属性	| 2|
 |文本	| 3|
