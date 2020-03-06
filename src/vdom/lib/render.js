@@ -98,6 +98,14 @@ function vdomToElement(vdom) {
 }
 
 function setAttr(ele,key,val) {
+  switch (key) {
+    case 'className':
+      key = 'class'
+      break;
+  
+    default:
+      break;
+  }
  
   switch (ele.tagName.toLocaleLowerCase()) {
     case 'textarea':
