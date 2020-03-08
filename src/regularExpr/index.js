@@ -59,7 +59,8 @@ function parser(tokens) {
 //
 var index = 0;
 var tokens = [];
-var startExpr = /^([a-z]*)(\s*)/;
+var tagExpr = /^(<[^>]*>)/ 
+var startExpr = /^<([a-z]*)(\s*)/;
 var attrsExpr = /(\s*)([a-z]*)=['"]{1}([^'"]*)['"]{1}(\s*)/;
 var endExpr = /(\s*(?:<\/>|<\/([a-z]*)>))/;
 var textExpr = /\s*([^<>]*)/;
@@ -69,28 +70,29 @@ function lexer(str) {
 
   while (index < str.length) {
     // 从字符串第0个位置开始进攻
-    lextext(str.slice(index))
-    lexTag(str.slice(index))
-    lexTagEnd(str.slice(index))
+    if (str.slice(index).indexOf('<')===0){
+      lexTag(str.slice(index))
+    }else{
+      lextext(str.slice(index))
+    }
   }
   return tokens;
 }
 function lexTag(str) {
-  var flag = true;
-
-  while (flag) {
-    lexTagstart(str.slice(index))
-    if (str.slice(index).length === 0) {
-      break;
+  var tagArr = str.match(tagExpr)
+  if (tagArr){
+    if (tagArr[0].indexOf('</') === 0){
+      lexTagEnd(tagArr[0])
+    }else{
+      lexTagstart(tagArr[0])
     }
-    flag = str.slice(index).indexOf('<') === 0
   }
-  lextext(str.slice(index))
+ 
 }
 function lexTagstart(str) {
   var tempstr = str;
   // 获取到开头
-  var startarr = tempstr.match(/^<([a-z]*)(\s*)/);
+  var startarr = tempstr.match(startExpr);
   if (startarr) {
     index += startarr[0].length;
     tempstr = tempstr.slice(startarr[0].length)
@@ -163,5 +165,6 @@ function lextext(str) {
     })
   }
 }
+// "<div class='abc'><img src='vvv' /><span>1</span><span>2</span></div>"
 parse("<div class='abc'><img src='vvv' /><span>1</span><span>2</span></div>")
 // export default parse
