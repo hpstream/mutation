@@ -46,7 +46,7 @@ function patch(vdom, newVdom) {
   // 比较孩子节点
   var oldchildren = vdom.children;
   var newchildren = newVdom.children;
-  newchildren.forEach((newchild)=>{
+  newchildren.forEach((newchild,index)=>{
       // 去老得数组里面找，可以复用的节点
     var oldindex = oldchildren.findIndex((oldchild) => {
       if (oldchild){
@@ -54,13 +54,16 @@ function patch(vdom, newVdom) {
       }
       return false;
     });
-    if (oldindex>0){ // 知道了可以复用的点
+    if (oldindex > 0){ // 知道了可以复用的点
       
       var oldVDom = oldchildren[oldindex];
       oldchildren[oldindex] = null;
+      elm.appendChild(oldVDom.elm)
       patch(oldVDom, newchild)
      
-    }else { // 没有知道复用的点
+    }else { 
+      // 没有知道复用的点,不能直
+      
       elm.appendChild(vdomToElement(newchild))
     }
   })

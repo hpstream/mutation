@@ -12,7 +12,7 @@ export default class VNode {
   }
   // 比较两个dom 是不是相同
   isSameVNode(oldVnode, newVnode) {
-    return oldVnode.key === newVnode.key
+    return oldVnode.data.key === newVnode.data.key
       && oldVnode.type === newVnode.type;
   }
 }

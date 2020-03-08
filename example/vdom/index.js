@@ -1,28 +1,29 @@
-import { h} from './../../src/vdom/index'
-import {render} from './../../src/vdom/fiber/index'
+import { h, render} from './../../src/vdom/index'
+// import {render} from './../../src/vdom/fiber/index'
 
-var arr = [];
-for(var i=0;i<100000;i++){
-  arr.push((<li className={i}>{i+''}</li>))
-}
+
 let VirtualDOM = (
   <div key='1' className='list1' >
-    {arr}
+    <div key='1'>1</div>
+    <div key='2'>2</div>
+    <div key='3'>3</div>
   </div>
 )
 
 let newVirtualDOM = (
   <div key='1' className='list' >
-    {arr}
+    <div key='2'>2</div>
+    <div key='4'>4</div>
+    <div key='3'>3</div>
   </div>
 )
 
 render(VirtualDOM,document.querySelector('#root'))
 
 
-// setInterval(() => {
-//   render(VirtualDOM, newVirtualDOM)
-// }, 10000);
+setTimeout(() => {
+  render(VirtualDOM, newVirtualDOM)
+}, 1000);
 
 
 
