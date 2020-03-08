@@ -7,7 +7,6 @@ var Stack = [];
 var currentTag;
 function parser(tokens) {
   var children = [];
-  console.log(tokens);
   for (let i = 0; i < tokens.length; i++) {
     let child = tokens[i];
     if (child.type === 'tag-start' || child.type === 'text') {
@@ -18,14 +17,10 @@ function parser(tokens) {
           children: []
         }
       } else {
-        Stack.push(currentTag);
         if (child.type === 'text') {
-          currentTag = {
-            tagName: child.type,
-            text: child.text,
-            children: []
-          }
+          currentTag.text = child.text
         } else {
+          Stack.push(currentTag);
           currentTag = {
             tagName: child.tagName,
             attrs: child.attrs,
@@ -33,18 +28,22 @@ function parser(tokens) {
           }
         }
       }
-
-
     }
 
     if (child.type === 'tag-end') {
       var parent = Stack.pop();
+      if (!parent){
+        children.push(currentTag)
+        currentTag = null;
+        continue;
+      }
       parent.children.push(currentTag)
       currentTag = parent;
     }
   }
   console.log('------------------------------------');
-  console.log(JSON.stringify(currentTag,null,2));
+  console.log(children.length);
+  console.log(JSON.stringify(children,null,2));
   console.log('------------------------------------');
 
 
@@ -166,5 +165,5 @@ function lextext(str) {
   }
 }
 // "<div class='abc'><img src='vvv' /><span>1</span><span>2</span></div>"
-parse("<div class='abc'><img src='vvv' /><span>1</span><span>2</span></div>")
+parse("<div class='abc'><img src='vvv' /><div><span>1</span></div><span>2</span></div><div class='abc1'><img src='vvv11' /><div><span>1</span></div><span>2</span></div>")
 // export default parse
