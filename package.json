@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "observer": "parcel ./example/observer/index.html",
     "vdom": "parcel ./example/vdom/index.html",
-    "parseHtml": "parcel ./example/parseHtml/index.html"
+
+
+
+    "parseHtml": "parcel ./example/parseHtml/index.html",
+    "vue-mvvm": "parcel ./example/vue-mvvm/index.html"
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,7 @@
     "@babel/core": "^7.8.4",
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "parcel-bundler": "^1.12.4",
-    "rollup": "^1.31.1"
+    "rollup": "^1.31.1",
+    "typescript": "^3.8.3"
   }
 }
