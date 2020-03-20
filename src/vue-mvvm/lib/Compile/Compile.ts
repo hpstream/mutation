@@ -44,6 +44,7 @@ with(this) {
     return ${this.ast2Render(ast)};
 }
         `;
+        // console.log(this.ast2Render(ast));
 
         // console.log(this.ast2Render(ast));
         if (process.env.NODE_ENV !== 'production') {

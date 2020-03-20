@@ -1,8 +1,12 @@
 import VNode from './VNode'
 
 export default function h(tag,props ,...children){
+  if (tag===''){
+    return new VNode('', '', '', props, null)
+    return;
+  }
  props = props||{}
-  var tem = []
+var tem = []
 children.forEach((child) => {
     if (Array.isArray(child)) {
        tem = tem.concat(child);

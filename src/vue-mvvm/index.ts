@@ -7,6 +7,7 @@ export default class Vue {
   private $options: MvvmOptions;
   private _data = {};
   private $data = {};
+  public $el: Element;
 
   constructor(options: MvvmOptions) {
     this.$options = options;
@@ -45,12 +46,14 @@ export default class Vue {
   _compile() {
        const { el } = this.$options;
        if (!this.$options.render) {
-         this.$options.render = Compile.render(document.querySelector(el).outerHTML
-         ) as any;
+         this.$el = document.querySelector(el);
+         this.$options.render = Compile.render(this.$el.outerHTML) as any;
+         this.$el.innerHTML = ''
        }
   }
   _update() {
    var vnode = this.$options.render.call(this, h);
    console.log(vnode);
+   render(vnode, this.$el);
   }
 }
