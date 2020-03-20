@@ -35,3 +35,12 @@
 |注释	| 8|
 |文档	| 9|
 
+
+# 相关文档
+
+
+|文档类型	| 链接|
+|-|-|
+|[TypeScript 从零实现 axios](https://hpstream.github.io/ts-axios/chapter1/)	| |
+|[vue 源码](https://ustbhuangyi.github.io/vue-analysis/v2/reactive/reactive-object.html#initstate)	| |
+
