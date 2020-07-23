@@ -58,7 +58,6 @@ class AsyncSeriesBailHook extends hook{
   compile(options) {
     //this钩子的实例 options参数对象taps args
     factory.setup(this, options);
-    console.log(factory.create(options).toString())
     return factory.create(options);
   }
 }
