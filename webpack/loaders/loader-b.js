@@ -5,9 +5,9 @@ function loader(source){
   setTimeout(()=>{
     callback(null,source+"//loder-b",'sourceMap');
   },3000);
-  //this.callback();
-  //console.log('loader-b',this.data);
-  //return source+"//loder-b";
+  // this.callback();
+  // console.log('loader-b',this.data);
+  // return source+"//loder-b";
 }
 
 /**
