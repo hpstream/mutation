@@ -5,7 +5,7 @@ import typescript from 'rollup-plugin-typescript2';
 
 const extensions = ['.js', '.ts'];
 export default {
-  input: './src/index.ts',
+  input: './src/index.js',
   output: {
     format: 'umd', // 模块化类型
     file: 'dist/umd/vue.js',
