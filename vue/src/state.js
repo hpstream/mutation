@@ -29,7 +29,7 @@ function initData(vm) {
   let data = vm.$options.data;
   data = vm._data = typeof data === 'function' ? data.call(vm):data;
 
-  for(let key in data){
+  for(let key in data){ // 将数据代理到vm 上
     proxy(vm,'_data',key)
   }
   observe(data)
