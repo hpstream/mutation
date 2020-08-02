@@ -1,3 +1,11 @@
+import { initState } from "./state";
+
 export function initMixins(Vue) {
-  console.log(1)
+  Vue.prototype._init = function(options) {
+    const vm = this;
+    vm.$options = options
+    // 初始化状态
+    initState(vm)
+  }
 }
+

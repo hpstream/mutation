@@ -1,11 +1,15 @@
 import { initMixins } from "./init";
 
-export interface Vue {
-  name: string;
+
+function Vue(options) {
+  this.$options = options;
+
+  this._init(options);
+
 }
 
-export function Vue() {
-  this.name = "11";
-}
+// 在原型上添加 _init 方法
+initMixins(Vue)
 
-// initMixins(Vue)
+
+export default Vue;
