@@ -1,10 +1,14 @@
 import { initMixins } from "./init";
 
-
+// 模版编译，响应式，domdiff
 function Vue(options) {
   this.$options = options;
 
   this._init(options);
+
+  if(options.el){
+    this.$mount(options.el)
+  }
 
 }
 
