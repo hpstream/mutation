@@ -7,6 +7,8 @@
 // 正则表达式网站
 // https://jex.im/regulex/#!flags=&re=%5Ba-zA-Z_%5D%5B%5C%5C-%5C%5C.0-9_a-z%5D*
 
+import { generate } from "./generate";
+
 const ncname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z]*`;
 const qnameCapture = `((?:${ncname}\\:)?${ncname})`;
 const startTagOpen = new RegExp(`^<${qnameCapture}`); // 标签开头的正则 捕获的内容是标签名
@@ -55,7 +57,7 @@ function chars(text) {
   }
 }
 function parseHTML(html) {
-
+  root = '';
   while (html) {
     // 判断 是否 < 开始
     let textEnd = html.indexOf('<')
@@ -119,6 +121,8 @@ function parseHTML(html) {
 export function compileToFunction(template) {
   parseHTML(template);
 
-  console.log(root)
-  return function () { }
+  let code = generate(root);
+  let render = `with(this){return ${code}}`;
+  let renderFn = new Function(render);
+  return renderFn
 }

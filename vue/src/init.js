@@ -1,5 +1,6 @@
 import { initState } from "./state";
 import { compileToFunction } from "./compiler";
+import { mountComponent } from "./ lifecycle";
 
 export function initMixins(Vue) {
   Vue.prototype._init = function(options) {
@@ -24,10 +25,12 @@ export function initMixins(Vue) {
       }else{
         render = compileToFunction(el.outerHTML);
       }
-
     }
-   
     options.render = render
+
+    console.log(vm,el)
+    // 需要挂载这个组件
+    mountComponent(vm, el);
   }
 }
 
