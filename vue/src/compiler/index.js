@@ -8,6 +8,7 @@
 // https://jex.im/regulex/#!flags=&re=%5Ba-zA-Z_%5D%5B%5C%5C-%5C%5C.0-9_a-z%5D*
 
 import { generate } from "./generate";
+import { ast } from "./ast";
 
 const ncname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z]*`;
 const qnameCapture = `((?:${ncname}\\:)?${ncname})`;
@@ -86,6 +87,7 @@ function parseHTML(html) {
     }
   }
 
+  return root;
 
 
   function parseStartTag() {
@@ -119,9 +121,9 @@ function parseHTML(html) {
 
 
 export function compileToFunction(template) {
-  parseHTML(template);
-
-  let code = generate(root);
+  let lexer = parseHTML(template);
+  let vdom = ast(lexer); 
+  let code = generate(vdom);
   let render = `with(this){return ${code}}`;
   let renderFn = new Function(render);
   return renderFn

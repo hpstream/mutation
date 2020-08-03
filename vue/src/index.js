@@ -6,6 +6,7 @@ import { renderMixin } from "./vdom";
 function Vue(options) {
   this.$options = options;
 
+  // 初始化数据 data;
   this._init(options);
 
   if(options.el){

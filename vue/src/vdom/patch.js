@@ -7,16 +7,45 @@ export function patch(oldVnode, vnode) {
 }
 
 function createElm(vnode) {
-  let { tag, children, key, data, text } = vnode;
+  let { tag, children, key, data, text} = vnode;
   if (typeof tag == 'string') { // 创建元素 放到vnode.el上
     vnode.el = document.createElement(tag);
+    handleAttrs(vnode.el, data)
     children.forEach(child => { // 遍历儿子 将儿子渲染后的结果扔到父亲中
+      // 处理属性
       vnode.el.appendChild(createElm(child));
     })
   } else { // 创建文件 放到vnode.el上
     vnode.el = document.createTextNode(text);
   }
   return vnode.el;
+}
+
+function handleAttrs(el,attrs) {
+  if (!attrs) return ;
+  Object.entries(attrs).forEach(attrs=>{
+    var [key,value] = attrs
+    switch (key) {
+      case 'class':
+        el.className = value
+        break;
+    
+      case 'id':
+        el.className = value
+        break;
+      case 'click':
+        el.addEventListener('click',value,false)
+        break;
+      case 'style':
+        var styleArr = [];
+        for(let key in value){
+          styleArr.push(`${key}:${value[key]}`)
+        }
+        el.style = styleArr.join(';')
+      default:
+        break;
+    }
+  })
 }
 
 // vue 的渲染流程 =》 先初始化数据 =》 将模板进行编译 =》 render函数 =》 生成虚拟节点 =》 生成真实的dom  =》 扔到页面上

@@ -16,8 +16,12 @@ function genProps(attrs) { //  id   "app"     / style  "fontSize:12px;color:red"
         obj[key] = value;
       });
       attr.value = obj;
+      str += `${attr.name}:${JSON.stringify(attr.value)},`;
     }
-    str += `${attr.name}:${JSON.stringify(attr.value)},`;
+    if(attr.name === 'click'){
+      str += `${attr.name}:${attr.value},`;
+    }
+    
   }
   return `{${str.slice(0, -1)}}`;
 }
@@ -27,7 +31,7 @@ function gen(node) {
   } else {
     let text = node.text; // 获取文本
     // 如果是普通文本 不带{{}}
-
+    console.log(text)
     if (!defaultTagRE.test(text)) {
       return `_v(${JSON.stringify(text)})` // _v('hello {{ name }} world {{msg}} aa')   => _v('hello'+_s(name) +'world' + _s(msg))
     }

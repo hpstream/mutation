@@ -8,9 +8,9 @@
 </head>
 
 <body>
-  <div id='app'>
+  <div id='app' @click='my'>
     faf
-    <div>name:{{name}}</div>
+    <div class='aa' style='color:red'>name:{{name}}</div>
     <div>age:{{age}}</div>
   </div>
 </body>
@@ -34,7 +34,12 @@
           name: 1
         }
       }
-    }
+    },
+    methods: {
+      my(){
+        console.log(1)
+      }
+    },
   })
 
   vm.arr.push({

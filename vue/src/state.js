@@ -22,7 +22,12 @@ export function initState(vm) {
 }
 
 function initProps() { }
-function initMethod() { }
+function initMethod(vm) {
+  let methods = vm.$options.methods
+  for (let key in methods){
+    vm[key] = methods[key].bind(this)
+  }
+ }
 function initData(vm) { 
   
   // 转换成响应式数据
