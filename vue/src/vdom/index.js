@@ -3,6 +3,7 @@ export function renderMixin(Vue) { // 用对象来描述dom的解构
     return createElement(...arguments);
   }
   Vue.prototype._s = function (val) { // stringify
+ 
     return val == null ? '' : (typeof val == 'object') ? JSON.stringify(val) : val;
   }
   Vue.prototype._v = function (text) { // 创建虚拟dom文本元素
