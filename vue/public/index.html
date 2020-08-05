@@ -17,6 +17,11 @@
 <script src="./../dist/umd/vue.js"></script>
 
 <script>
+   Vue.options = {
+     beforeCreate:[function(){
+     console.log('haha ')
+     }]
+   }
   var vm = new Vue({
     el: '#app',
     data() {
@@ -35,6 +40,9 @@
         }
       }
     },
+    beforeCreate(){
+      console.log(1)
+    },
     methods: {
       my(){
         console.log(1)
@@ -45,6 +53,8 @@
   vm.arr.push({
     index: 4
   })
+
+ 
   // console.log(vm.arr)
 </script>
 
