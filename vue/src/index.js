@@ -1,6 +1,7 @@
 import { initMixins } from "./init";
 import { lifecycleMixin } from "./ lifecycle";
 import { renderMixin } from "./vdom";
+import { initGlobalApi } from "./global-api";
 
 // 模版编译，响应式，domdiff
 function Vue(options) {
@@ -19,6 +20,8 @@ function Vue(options) {
 initMixins(Vue)
 lifecycleMixin(Vue); // 混合生命周期 渲染
 renderMixin(Vue);
+
+initGlobalApi(Vue)
 
 
 export default Vue;

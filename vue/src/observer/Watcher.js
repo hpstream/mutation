@@ -1,3 +1,5 @@
+import Dep from "./dep";
+
 let id = 0;
 class Watcher {
   constructor(vm, exprOrFn, cb, options) {
@@ -12,7 +14,13 @@ class Watcher {
     this.get();
   }
   get() {
+
+    Dep.target = this;
     this.getter();
+    Dep.target = null;
+  }
+  update(){
+    this.get()
   }
 }
 

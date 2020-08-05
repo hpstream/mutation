@@ -1,16 +1,18 @@
 export function patch(oldVnode, vnode) {
   // 将虚拟节点转化成真实节点
   let el = createElm(vnode); // 产生真实的dom 
+  console.log(vnode)
   let parentElm = oldVnode.parentNode; // 获取老的app的父亲 =》 body
   parentElm.insertBefore(el, oldVnode.nextSibling); // 当前的真实元素插入到app的后面
   parentElm.removeChild(oldVnode); // 删除老的节点
+  return el
 }
 
 function createElm(vnode) {
-  let { tag, children, key, data, text} = vnode;
+  let { tag, children, key, data, text } = vnode;
   if (typeof tag == 'string') { // 创建元素 放到vnode.el上
     vnode.el = document.createElement(tag);
-    handleAttrs(vnode.el, data)
+    updateProperties(vnode)
     children.forEach(child => { // 遍历儿子 将儿子渲染后的结果扔到父亲中
       // 处理属性
       vnode.el.appendChild(createElm(child));
@@ -21,29 +23,26 @@ function createElm(vnode) {
   return vnode.el;
 }
 
-function handleAttrs(el,attrs) {
-  if (!attrs) return ;
-  Object.entries(attrs).forEach(attrs=>{
-    var [key,value] = attrs
+function updateProperties(vm) {
+  let el = vm.el;
+  let attrs = vm.data;
+  if (!attrs) return;
+  Object.entries(attrs).forEach(attrs => {
+    var [key, value] = attrs
     switch (key) {
-      case 'class':
-        el.className = value
-        break;
-    
-      case 'id':
-        el.className = value
-        break;
+
       case 'click':
-        el.addEventListener('click',value,false)
+        el.addEventListener('click', value, false)
         break;
       case 'style':
         var styleArr = [];
-        for(let key in value){
+        for (let key in value) {
           styleArr.push(`${key}:${value[key]}`)
         }
         el.style = styleArr.join(';')
-      default:
         break;
+      default:
+        el.setAttribute(key, value)
     }
   })
 }

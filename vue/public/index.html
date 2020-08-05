@@ -8,20 +8,20 @@
 </head>
 
 <body>
-  <div id='app' @click='my'>
+  <div id='app'>
     faf
     <div class='aa' style='color:red'>name:{{name}}</div>
-    <div>age:{{age}}</div>
+    <div>age:{{age}}{{arr}}</div>
   </div>
 </body>
 <script src="./../dist/umd/vue.js"></script>
 
 <script>
-   Vue.options = {
-     beforeCreate:[function(){
-     console.log('haha ')
-     }]
-   }
+  Vue.options = {
+    beforeCreate: [function () {
+      console.log('haha ')
+    }]
+  }
   var vm = new Vue({
     el: '#app',
     data() {
@@ -40,21 +40,26 @@
         }
       }
     },
-    beforeCreate(){
+    beforeCreate() {
       console.log(1)
     },
     methods: {
-      my(){
+      my() {
         console.log(1)
       }
     },
   })
 
-  vm.arr.push({
-    index: 4
-  })
+  setTimeout(() => {
+    vm.arr.push({index:4});
+  }, 2000);
 
- 
+  // setTimeout(() => {
+  //   vm.arr[0].index=2;
+  //   console.log(vm)
+  // }, 4000);
+
+
   // console.log(vm.arr)
 </script>
 

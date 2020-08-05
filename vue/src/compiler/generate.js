@@ -16,11 +16,13 @@ function genProps(attrs) { //  id   "app"     / style  "fontSize:12px;color:red"
         obj[key] = value;
       });
       attr.value = obj;
-      str += `${attr.name}:${JSON.stringify(attr.value)},`;
+    
     }
-    if(attr.name === 'click'){
+    if(attr.name === '@click'){
       str += `${attr.name}:${attr.value},`;
+      return ;
     }
+    str += `${attr.name}:${JSON.stringify(attr.value)},`;
     
   }
   return `{${str.slice(0, -1)}}`;
