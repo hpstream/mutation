@@ -27,6 +27,7 @@ function mergeHook(parentVal, childValue) { // 生命周期的合并
     return parentVal; // 不合并了 采用父亲的
   }
 }
+
 LIFECYCLE_HOOKS.forEach(hook => {
   strats[hook] = mergeHook
 })
@@ -45,7 +46,7 @@ export function mergeOptions(parent, child) {
 
   function mergeField(key) { // 合并字段
     // 根据key 不同的策略来进行合并 
-    if (strats[key]) {
+    if (strats[key]) { 
       options[key] = strats[key](parent[key], child[key]);
     } else {
       // todo默认合并
