@@ -1,4 +1,4 @@
-import { mergeOptions } from "../../util";
+import { mergeOptions } from "../util";
 
 
 export function initGlobalApi(Vue) {
