@@ -42,8 +42,28 @@ function initData(vm) {
   observe(data)
 
 }
-function initComputed() { }
-function initWatch() {}
+function initComputed(vm) {
+
+  let computedfn =  vm.$options.computed;
+  
+  Object.keys(computedfn).forEach((key)=>{
+    Object.defineProperty(vm, key,{
+      get(){
+        return computedfn[key].call(vm)
+      },
+      set(value){
+        throw new Error('计算属性不能修改')
+      }
+    })
+  })
+}
+function initWatch(vm) {
+  let watchfn = vm.$options.watch
+
+  Object.keys(watchfn).forEach((key) => {
+    vm.$watch(key, watchfn[key])
+  })
+}
 
 function proxy(vm, source, key) {
   Object.defineProperty(vm, key,{

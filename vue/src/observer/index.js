@@ -38,9 +38,6 @@ function defineReactive(data, key, value) {
   if (typeof value === 'object') {
     childob = observe(value)
   };
-  if(key==='name'){
-    console.log(dep)
-  }
   Object.defineProperty(data, key, {
     get: function getters() {
       if (Dep.target) {
