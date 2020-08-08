@@ -46,7 +46,7 @@ export function mergeOptions(parent, child) {
 
   function mergeField(key) { // 合并字段
     // 根据key 不同的策略来进行合并 
-    if (strats[key]) { 
+    if (strats[key]) {
       options[key] = strats[key](parent[key], child[key]);
     } else {
       // todo默认合并
@@ -56,4 +56,21 @@ export function mergeOptions(parent, child) {
 
 
   return options;
+}
+let callbacks = [];
+let padding = false;
+function timerFunc() {
+  if (!padding) {
+    padding = true;
+    return Promise.resolve().then(() => {
+      callbacks.forEach(cb => cb());
+      padding = false;
+
+    })
+  }
+}
+
+export function nextTick(cb) {
+  callbacks.push(cb);
+  timerFunc();
 }

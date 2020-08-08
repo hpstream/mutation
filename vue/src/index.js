@@ -2,6 +2,7 @@ import { initMixins } from "./init";
 import { lifecycleMixin, callHook } from "./ lifecycle";
 import { renderMixin } from "./vdom";
 import { initGlobalApi } from "./global-api";
+import { stateMixin } from "./state";
 
 // 模版编译，响应式，domdiff
 function Vue(options) {
@@ -20,6 +21,7 @@ function Vue(options) {
 initMixins(Vue)
 lifecycleMixin(Vue); // 混合生命周期 渲染
 renderMixin(Vue);
+stateMixin(Vue)
 
 
 // 静态方法 Vue.component Vue.directive Vue.extend Vue.mixin ...

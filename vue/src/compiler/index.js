@@ -124,7 +124,6 @@ export function compileToFunction(template) {
   let lexer = parseHTML(template);
   let vdom = ast(lexer); 
   let code = generate(vdom);
-  console.log(code)
   let render = `with(this){return ${code}}`;
   let renderFn = new Function(render);
   return renderFn

@@ -3,10 +3,8 @@ import Dep from "./dep";
 
 class Observe {
   constructor(data) {
-
     this.$data = data;
-
-    if (typeof data !== 'object') return;
+    this.dep = new Dep();
     // data.__ob__ = this; // 这样写会死循环，注意
     Object.defineProperty(data, '__ob__', {
       enumerable: false,
@@ -15,7 +13,6 @@ class Observe {
     });
     if (Array.isArray(data)) {
       data.__proto__ = arrayMethods; // 重写数组原型方法
-      this.dep = new Dep();
       this.observeArray(data);
     } else {
       this.walk(data);
@@ -41,14 +38,16 @@ function defineReactive(data, key, value) {
   if (typeof value === 'object') {
     childob = observe(value)
   };
+  if(key==='name'){
+    console.log(dep)
+  }
   Object.defineProperty(data, key, {
     get: function getters() {
       if (Dep.target) {
         dep.depend();
-        if (childob){
+        if (childob) {
           childob.dep.depend();
         }
-       
       }
       return value
     },
@@ -65,6 +64,8 @@ function defineReactive(data, key, value) {
 }
 
 export function observe(data) {
+
+  if (typeof data !== 'object') return;
   if (data['__ob__']) return;
   return new Observe(data)
 }

@@ -1,4 +1,6 @@
 import { observe } from "./observer";
+import { nextTick } from "./util";
+import Watcher from "./observer/Watcher";
 
 export function initState(vm) {
   const opts = vm.$options
@@ -41,7 +43,7 @@ function initData(vm) {
 
 }
 function initComputed() { }
-function initWatch() { }
+function initWatch() {}
 
 function proxy(vm, source, key) {
   Object.defineProperty(vm, key,{
@@ -52,4 +54,19 @@ function proxy(vm, source, key) {
       vm[source][key] = newValue;
     }
   })
+}
+
+export function stateMixin(Vue) {
+  Vue.prototype.$nextTick = function (cb) {
+    nextTick(cb);
+  }
+
+
+  Vue.prototype.$watch = function (exprOrFn, cb, options = {}) {
+    let watcher = new Watcher(this, exprOrFn, cb, { ...options, user: true });
+    if (options.immediate) {
+      cb(); // 如果是immdiate应该立刻执行
+    }
+  }
+  
 }
