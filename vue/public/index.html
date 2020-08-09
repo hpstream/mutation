@@ -10,7 +10,6 @@
 <body>
   <div id='app'>
     <div class='aa' style='color:red'>
-      11{{name}}
       <div>{{info}}</div>
     </div>
   </div>
@@ -23,17 +22,14 @@
     data() {
       return {
         name: 'hp',
-        age:25
-      }
-    },
-    watch: {
-      name:(newValue,oldValue)=>{
-        console.log(newValue, oldValue)
+        age:25,
+        f:'man'
       }
     },
     computed: {
       info(){
-        return this.name + '-' + this.age;
+        console.log('我执行了')
+        return this.name + '-' + this.age + '-'+this.f;
       }
     },
     methods: {
@@ -42,15 +38,10 @@
       }
     },
   })
-  setTimeout(() => {
-    vm.name = '3123123'
-  }, 1000);
-
-  setTimeout(() => {
-    vm.name = 'abc'
-    vm.age=30;
-    // console.log(vm)
-  }, 2000);
+  
+ setTimeout(() => {
+     vm.name = 'zs'
+ }, 2000);
   // console.log(vm.$el.innerHTML)
 
 

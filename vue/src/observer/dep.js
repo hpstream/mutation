@@ -21,3 +21,15 @@ class Dep {
 }
 
 export default Dep;
+
+let stack = [];
+export function pushTarget(watcher) {
+  Dep.target = watcher;// 保留watcher
+  stack.push(watcher); // 有渲染watcher 其他的watcher
+
+}
+
+export function popTarget() {
+  stack.pop();
+  Dep.target = stack[stack.length - 1]; // 将变量删除掉
+}

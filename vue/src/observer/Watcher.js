@@ -1,4 +1,4 @@
-import Dep from "./dep";
+import Dep, { pushTarget, popTarget } from "./dep";
 import { nextTick } from "../util";
 
 let id = 0;
@@ -8,6 +8,8 @@ class Watcher {
     this.exprOrFn = exprOrFn;
     this.deps = []; // watcher记录有多少dep依赖他
     this.depsId = new Set();
+    this.lazy = options.lazy; // 计算属性的标记
+    this.dirty = this.lazy ; // 计算属性是否可以修改的标记
       if(typeof exprOrFn == 'function') {
       this.getter = exprOrFn;
     }else {
@@ -25,12 +27,12 @@ class Watcher {
     this.options = options;
     this.user = options.user; // 这是一个用户watcher
     this.id = id++;
-    this.oldvalue = this.get();
+    this.oldvalue = this.dirty ? void 0 : this.get();
   }
   get() {
-    Dep.target = this;
-    var newValue = this.getter();
-    Dep.target = null;
+    pushTarget(this);
+    var newValue = this.getter.call(this.vm);
+    popTarget()
     return newValue
   }
   addDep(dep) {
@@ -49,8 +51,26 @@ class Watcher {
       this.cb.call(this.vm, newValue, oldValue);
     }
   }
+  evaluate(){   
+    this.oldvalue = this.get()
+    this.dirty = false;
+  }
   update() {
-    queueWatcher(this)
+    if(this.lazy){
+      this.dirty = true;
+    }else{
+      queueWatcher(this)
+    }
+  
+  }
+  depend() {
+    // 计算属性watcher 会存储 dep  dep会存储watcher
+
+    // 通过watcher找到对应的所有dep，让所有的dep 都记住这个渲染watcher
+    let i = this.deps.length;
+    while (i--) { // 执行依赖手机
+      this.deps[i].depend(); // 让dep去存储渲染watcher
+    }
   }
 }
 
