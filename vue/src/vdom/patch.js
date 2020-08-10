@@ -67,7 +67,7 @@ function diff(oldVnode, vnode) {
   }
 
   if (!oldVnode.tag) {
-    if (vnode.text) {
+    if (vnode.text != oldVnode.text) {
       return oldVnode.el.textContent = vnode.text;
     }
   }
@@ -153,7 +153,7 @@ function updateChildren(oldChildren, newChildren, el) {
 
   // 新节点的儿子，比老节点多
   if (newStartIndex <= newEndIndex) {
-    for (let index = oldStartIndex; index <= oldEndIndex; index++) {
+    for (let index = newStartIndex; index <= newEndIndex; index++) {
       let newVnode = newChildren[index];
       let ele = newChildren[index + 1] == null ? null : newChildren[index + 1].el;
       el.insertBefore(createElm(newVnode), ele);

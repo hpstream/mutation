@@ -43,6 +43,7 @@ document.body.appendChild(createElm(vnode1))
 let vm2 = new Vue({ data: { name: 'jw' } });
 let render2 = compileToFunction(`<div>
    <li style="background:red" key="A">A</li>
+   <li style="background:red" key="b">b</li>
 </div>`);
 let vnode2 = render2.call(vm2); // render方法返回的是虚拟dom
 
