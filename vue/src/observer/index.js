@@ -40,7 +40,6 @@ function defineReactive(data, key, value) {
   };
   Object.defineProperty(data, key, {
     get: function getters() {
-      console.log(Dep.target)
       if (Dep.target) {
         dep.depend();
         if (childob) {
