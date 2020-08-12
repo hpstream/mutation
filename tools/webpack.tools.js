@@ -2,7 +2,19 @@ const shell = require('shelljs');
 const fs = require('fs');
 var dirlist = {};
 
-var dirs = ['200505-long-road', '190110-luckDraw'];
+var dirs = [
+  'society-portal'
+  // 'changename',
+  // 'god',
+  // '200506-number-shop',
+  // '200605-sleep-baby',
+  // '200409-may-day',
+  // '200514-children-day',
+  // '200522-super-voiceroom',
+  // 'intimacy',
+  // 'knapsack',
+  // 'bag-new'
+];
 
 var dirPromise = dirs.map((dir) => {
   return getInfo(dir);
@@ -10,13 +22,20 @@ var dirPromise = dirs.map((dir) => {
 
 Promise.all(dirPromise).then(() => {
   fs.writeFileSync('stat.js', JSON.stringify(dirlist, null, 2));
+}).catch((err) => {
+  console.log(err)
 });
 function getInfo(dir) {
   return new Promise((resolve, reject) => {
     shell.exec(`rm -rf build;npm run test --filter=${dir}`, { silent: true }, function (code, stdout, stderr) {
-      var json = handelstdout(stdout);
-      dirlist[dir] = json;
-      resolve();
+      if (code === 0) {
+        var json = handelstdout(stdout);
+        dirlist[dir] = json;
+        resolve();
+      } else {
+        reject(stderr)
+      }
+
     });
   });
 }
