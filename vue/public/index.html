@@ -10,15 +10,34 @@
 <body>
   <div id='app'>
     <div class='aa' style='color:red'>
-      <div>{{info}}</div>
+        <my-component></my-component>
+        <aa-aa></aa-aa>
     </div>
   </div>
 </body>
 <script src="./../dist/umd/vue.js"></script>
 
 <script>
+  Vue.component('my-component',{
+  template:'<button>点我</button>',
+  });
   var vm = new Vue({
     el: '#app',
+    components:{
+      'aa-aa':{
+        data(){
+          return {
+            a:1
+          }
+        },
+        template:'<button>点我{{a}}</button>',
+        mounted() {
+          setInterval(() => {
+            this.a++
+          }, 1000);
+        },
+      }
+    },
     data() {
       return {
         name: 'hp',
@@ -38,6 +57,7 @@
       }
     },
   })
+  console.log(vm)
   
 //  setTimeout(() => {
 //      vm.name = 'zs'

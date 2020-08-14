@@ -46,6 +46,7 @@ function gen(node) {
   }
 }
 function genChildren(el) {
+
   const children = el.children;
   if (children) { // 将所有转化后的儿子用逗号拼接起来
     return children.map(child => gen(child)).join(',')

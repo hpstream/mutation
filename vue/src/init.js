@@ -20,18 +20,21 @@ export function initMixins(Vue) {
     const options = vm.$options;
     el = document.querySelector(el);
    
-    if (!el){
-     console.error(new Error(`el 节点不存在`))
-    }
+    // if (!el){
+    //  console.error(new Error(`el 节点不存在`))
+    // }
     // 处理参数： render ,template;
-    if (!vm.render){
-      if(vm.template) {
-        render = compileToFunction(vm.template);
-      }else{
-        render = compileToFunction(el.outerHTML);
+
+    if (!options.render) {
+      let template = options.template;
+      if (!template && el) {
+        template = el.outerHTML;
       }
+      // template => render方法
+      // 1.处理模板变为ast树 2.标记静态节点 3.codegen=>return 字符串 4.new Function + with (render函数)
+      const render = compileToFunction(template);
+      options.render = render
     }
-    options.render = render
 
     // 需要挂载这个组件
     mountComponent(vm, el);

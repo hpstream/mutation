@@ -50,7 +50,12 @@ export function mergeOptions(parent, child) {
       options[key] = strats[key](parent[key], child[key]);
     } else {
       // todo默认合并
-      options[key] = child[key]
+      if (child[key]) {
+        options[key] = child[key]
+      } else {
+        options[key] = parent[key]
+      }
+
     }
   }
 
@@ -74,3 +79,18 @@ export function nextTick(cb) {
   callbacks.push(cb);
   timerFunc();
 }
+
+function makeMap(str) {
+  const mapping = {};
+  const list = str.split(',');
+  for (let i = 0; i < list.length; i++) {
+    mapping[list[i]] = true;
+  }
+  return (key) => { // 判断这个标签名是不是原生标签
+    return mapping[key];
+  }
+}
+
+export const isReservedTag = makeMap(
+  'a,div,img,image,text,span,p,button,input,textarea,ul,li'
+)

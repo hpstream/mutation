@@ -9,6 +9,13 @@ export const LIFECYCLE_HOOKS = [
   'destroyed',
 ]
 const strats = {};
+strats.components = function (parentVal,childVal) {
+  var proto = Object.create(parentVal);
+  for(let key in childVal){
+    proto[key] = childVal[key];
+  }
+  return proto;
+}
 function mergeHook(parentVal, childValue) {
   if (childValue) {
     if (parentVal) {
@@ -43,7 +50,12 @@ export function mergeOptions(parent, child) {
           ...child[key]
         }
       } else {
-        options[key] = child[key];
+        if (child[key]){
+          options[key] = child[key];
+        }else{
+          options[key] = parent[key]
+        }
+       
       }
     }
   }
