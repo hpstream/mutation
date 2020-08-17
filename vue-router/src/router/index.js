@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Vue from 'vue';
-import Router from 'vue-router'; // Router是一个插件
+import Router from './../vue-router'; // Router是一个插件
 import Home from './../views/Home.vue';
 import About from './../views/About';
 Vue.use(Router); // 使用这个插件  内部会提供给你两个全局组件 router-link router-view  并且还会提供两个原型上的属性 $router $route
