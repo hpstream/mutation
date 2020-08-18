@@ -48,17 +48,17 @@ let router = new Router({
 // 调用 beforeRouteEnter 守卫中传给 next 的回调函数，创建好的组件实例会作为回调函数的参数传入。
 
 // 当导航变化时 会依次执行这两个方法
-// router.beforeEach((from, to, next) => {
-//   console.log(1);
-//   setTimeout(() => {
-//     next();
-//   }, 1000);
-// })
-// router.beforeEach((from, to, next) => {
-//   console.log(2);
-//   setTimeout(() => {
-//     next();
-//   }, 1000);
-// })
+router.beforeEach((from, to, next) => {
+  console.log(1);
+  setTimeout(() => {
+    next();
+  }, 1000);
+})
+router.beforeEach((from, to, next) => {
+  console.log(2);
+  setTimeout(() => {
+    next();
+  }, 1000);
+})
 
 export default router
