@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<body>
+  <div id='app'>
+    <div>
+      <div v-if='flag' ref='s' >
+        <input type="text" v-model='opt.name'>
+      </div>
+      <div v-if='!flag' ref='s1'>
+        <input type="text" v-model='opt.password'>
+      </div>
+    </div>
+
+    <div>
+      <div v-if='flag'>
+        <wb name='2' key=1></wb>
+      </div>
+      <div v-if='!flag' >
+        <wb name='1' key=2></wb>
+      </div>
+    </div>
+   
+    <button @click='()=>{flag = !flag}'>切换输入框</button>
+  </div>
+
+</body>
+<script>
+  Vue.component('wb', {
+    template: `<div ref='s'><input type="text" :key='' v-model='value'>{{name}}</div>`,
+    props:['name'],
+    data() {
+      return {
+        value: ''
+      }
+    },
+    mounted() {
+      this.a = Math.random()
+      console.log(1)
+      // this.$refs['s'].setAttribute('sss',Math.random()+'---')
+    },
+    updated() {
+      console.log(1)
+    },
+  })
+  new Vue({
+    el: '#app',
+    data: {
+      msg:'啦啦',
+      opt: {
+        name: '',
+        password: ''
+      },
+      flag: true
+    },
+    mounted() {
+      console.log(this)
+    },
+    updated() {
+      console.log(this)
+    },
+  })
+</script>
+
+</html>
+
+
+

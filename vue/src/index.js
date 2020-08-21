@@ -54,5 +54,3 @@ initGlobalApi(Vue)
 //   patch(vnode1, vnode2); // 传入新的虚拟节点和老的 做一个对比
 // }, 3000);
 
-
-export default Vue;
