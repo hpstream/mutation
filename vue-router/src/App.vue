@@ -4,7 +4,17 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
+    <div>
+      我的年龄是: {{this.$store.state.age}}
+      <br />
+      hpStream的年龄是: {{this.$store.getters.getAge}}
+      <br />
+      <!-- dispatch对应的action -->
+      <button @click="$store.dispatch('changeAge',3)">过一会增加年龄</button>
+      <!-- commit 对应的mutation -->
+      <button @click="$store.commit('changeAge',5)">立即增加年龄</button>
+    </div>
   </div>
 </template>
 
